@@ -4,13 +4,13 @@
 --DBCC FLUSHPROCINDB (<DatabaseID>) --Flushes cache for one database
 
 --Determine the id of your database
-DECLARE @intDBID INTEGER
-SET @intDBID = ( SELECT dbid
-                 FROM    master.dbo.sysdatabases
-                 WHERE  name = 'mydatabasename'
-               )
- --Flush the procedure cache for your database
-DBCC FLUSHPROCINDB (@intDBID)
+-- DECLARE @intDBID INTEGER
+-- SET @intDBID = ( SELECT dbid
+                 -- FROM    master.dbo.sysdatabases
+                 -- WHERE  name = 'mydatabasename'
+               -- )
+ ----Flush the procedure cache for your database
+--DBCC FLUSHPROCINDB (@intDBID)
 
 
 ---------------------------------------------------2
