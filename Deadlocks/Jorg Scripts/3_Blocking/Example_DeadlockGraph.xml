@@ -1,0 +1,44 @@
+<deadlock-list>
+	<deadlock victim="process41e7048">
+		<process-list>
+			<process id="process41e7048" taskpriority="0" logused="0" waitresource="KEY: 13:72057594414104576 (ea5692cbbf85)" waittime="1525" ownerId="504100" transactionname="user_transaction" lasttranstarted="2015-11-18T16:39:10.873" XDES="0xe96bb950" lockMode="X" schedulerid="8" kpid="4244" status="suspended" spid="52" sbid="2" ecid="0" priority="0" trancount="1" lastbatchstarted="2015-11-18T16:48:32.653" lastbatchcompleted="2015-11-18T16:39:10.913" clientapp="Microsoft Dynamics NAV Service" hostname="NB03" hostpid="4772" loginname="NB03\sqlservice" isolationlevel="repeatable read (3)" xactid="504100" currentdb="13" lockTimeout="4294967295" clientoption1="671156320" clientoption2="128056">
+				<executionStack>
+					<frame procname="adhoc" line="1" stmtstart="74" sqlhandle="0x02000000f6f33930ffb258b2f9b01e71c1aa86a2eb124132">
+SELECT TOP 1 NULL FROM "Demo Database NAV (7-1)".dbo."CRONUS EXT International Ltd_$Sales Header" WITH(XLOCK)  WHERE ("Document Type"=@0 AND "No_"=@1 AND "timestamp"=@2)  OPTION(OPTIMIZE FOR UNKNOWN)     </frame>
+					<frame procname="unknown" line="1" sqlhandle="0x000000000000000000000000000000000000000000000000">
+unknown     </frame>
+				</executionStack>
+				<inputbuf>
+(@0 int,@1 nvarchar(20),@2 binary(8))SELECT TOP 1 NULL FROM "Demo Database NAV (7-1)".dbo."CRONUS EXT International Ltd_$Sales Header" WITH(XLOCK)  WHERE ("Document Type"=@0 AND "No_"=@1 AND "timestamp"=@2)  OPTION(OPTIMIZE FOR UNKNOWN)    </inputbuf>
+			</process>
+			<process id="process41cc988" taskpriority="0" logused="0" waitresource="KEY: 13:72057594416201728 (c8a4ad8b6df7)" waittime="512070" ownerId="502956" transactionname="user_transaction" lasttranstarted="2015-11-18T16:37:48.227" XDES="0x8032ee80" lockMode="X" schedulerid="7" kpid="4240" status="suspended" spid="54" sbid="2" ecid="0" priority="0" trancount="1" lastbatchstarted="2015-11-18T16:40:02.060" lastbatchcompleted="2015-11-18T16:37:48.230" clientapp="Microsoft Dynamics NAV Service" hostname="NB03" hostpid="4772" loginname="NB03\sqlservice" isolationlevel="repeatable read (3)" xactid="502956" currentdb="13" lockTimeout="4294967295" clientoption1="671156320" clientoption2="128056">
+				<executionStack>
+					<frame procname="adhoc" line="1" stmtstart="74" sqlhandle="0x0200000061748e2a25a7dd6ef799f22568f420ed567ea881">
+SELECT TOP 1 NULL FROM "Demo Database NAV (7-1)".dbo."CRONUS EXT International Ltd_$Purchase Header" WITH(XLOCK)  WHERE ("Document Type"=@0 AND "No_"=@1 AND "timestamp"=@2)  OPTION(OPTIMIZE FOR UNKNOWN)     </frame>
+					<frame procname="unknown" line="1" sqlhandle="0x000000000000000000000000000000000000000000000000">
+unknown     </frame>
+				</executionStack>
+				<inputbuf>
+(@0 int,@1 nvarchar(20),@2 binary(8))SELECT TOP 1 NULL FROM "Demo Database NAV (7-1)".dbo."CRONUS EXT International Ltd_$Purchase Header" WITH(XLOCK)  WHERE ("Document Type"=@0 AND "No_"=@1 AND "timestamp"=@2)  OPTION(OPTIMIZE FOR UNKNOWN)    </inputbuf>
+			</process>
+		</process-list>
+		<resource-list>
+			<keylock hobtid="72057594414104576" dbid="13" objectname="Demo Database NAV (7-1).dbo.CRONUS EXT International Ltd_$Sales Header" indexname="CRONUS EXT International Ltd_$Sales Header$0" id="lockf06e1100" mode="X" associatedObjectId="72057594414104576">
+				<owner-list>
+					<owner id="process41cc988" mode="X"/>
+				</owner-list>
+				<waiter-list>
+					<waiter id="process41e7048" mode="X" requestType="wait"/>
+				</waiter-list>
+			</keylock>
+			<keylock hobtid="72057594416201728" dbid="13" objectname="Demo Database NAV (7-1).dbo.CRONUS EXT International Ltd_$Purchase Header" indexname="CRONUS EXT International Ltd_$Purchase Header$0" id="lockef673400" mode="X" associatedObjectId="72057594416201728">
+				<owner-list>
+					<owner id="process41e7048" mode="X"/>
+				</owner-list>
+				<waiter-list>
+					<waiter id="process41cc988" mode="X" requestType="wait"/>
+				</waiter-list>
+			</keylock>
+		</resource-list>
+	</deadlock>
+</deadlock-list>
