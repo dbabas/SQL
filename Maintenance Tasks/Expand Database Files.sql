@@ -1,4 +1,6 @@
-declare @Filename as nvarchar(500), @Size as decimal(10,0), @FreeSpacePc as decimal(10,2),@sql nvarchar(500)
+Use [DatabaseName]
+declare @Filename as nvarchar(500), @Size as decimal(10,0), @FreeSpacePc as decimal(10,2),@sql nvarchar(500),@IncreaseBy decimal(10,0)
+set @IncreaseBy = 5000 --in MB
 declare cur cursor local for 
 
 SELECT 
@@ -15,7 +17,7 @@ while @@FETCH_STATUS = 0 BEGIN
 
     If @FreeSpacePc < 10
 		begin
-		set @sql =N'ALTER Database [Demo Database NAV (10-0)] MODIFY FILE (name = '''+@Filename+''', SIZE = '+cast((@size+100)*1000 as nvarchar(10))+'KB)'
+		set @sql =N'ALTER Database [DatabaseName] MODIFY FILE (name = '''+@Filename+''', SIZE = '+cast((@size+@IncreaseBy) as nvarchar(10))+'MB)'
 		--set @sql =N'select * from sys.objects'
 		execute sp_executesql @sql
 		end
