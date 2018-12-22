@@ -9,6 +9,10 @@ SELECT sqlserver_start_time FROM sys.dm_os_sys_info
 --SELECT create_date FROM sys.databases WHERE name = 'tempdb' 
 
 DBCC TRACESTATUS
+--To turn on for all sessions in the instance
+--DBCC TRACON (1117,-1)
+--DBCC TRACON (1118,-1)
+
 
 --Info about MAXDOP and NAV: https://www.archerpoint.com/node/5166
 SELECT  *
