@@ -1,0 +1,9 @@
+--Table Keys and Performance in Dynamics NAV
+--https://docs.microsoft.com/en-us/dynamics-nav/table-keys-and-performance
+--Great example to illustrate the concept of Index vs Sorting. SETCURRENTKEY is only sorting. SQL will pick the optimal key anyway, as long as it exists.
+
+--In the following code example, SQL Server chooses an index that contains the HighSelectivityColumn and then sorts the rows by the LowSelectivityColumn.
+--SETCURRENTKEY("LowSelectivityColumn");   
+--SETFILTER("LowSelectivityColumn",'1');   
+--SETFILTER("HighSelectivityColumn",'777');   
+--FIND('-')

@@ -1,0 +1,10 @@
+--Data Access
+--https://docs.microsoft.com/en-us/dynamics-nav/data-access
+--Points of Interest:
+--Path to retrieve data on the client. NAV server cache and SQL server cache.
+--C/AL commands that utilize the cache system
+--In Dynamics NAV, the data cache is shared by all users who are connected to the same Microsoft Dynamics NAV Server instance. (modern versions)
+--"Data Cache Size" = 9 -> 512 MB, 10 -> 1024 MB, 11 -> 2048 MB ...
+--Results from query objects are not cached
+--Dynamics NAV synchronizes caching between Microsoft Dynamics NAV Server instances that are connected to the same database. By default, the synchronization occurs every 30 seconds.
+--As of Microsoft Dynamics NAV 2018, the use of SQL Server table and index partitioning is a supported configuration. (example: put old GL Entries to a different partition).

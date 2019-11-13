@@ -1,0 +1,63 @@
+C/AL Database Functions and Performance on SQL Server
+https://docs.microsoft.com/en-us/dynamics-nav/c-al-database-functions-and-performance-on-sql-server
+
+In Microsoft Dynamics NAV 2018, records are retrieved using multiple active result sets (MARS). Generally, retrieving records with MARS is faster than with server-side cursors (Old versions).
+
+Record.FIND('-') and Record.FIND('+'). When it's highly possible to not need the entire dataset. Results in TOP x statement.
+
+Record.NEXT can be called at any time. However, if Record.NEXT is not called as part of retrieving a continuous result set, then Dynamics NAV calls a separate SQL statement in order to find the next record.
+
+Result Sets are Dynamic.
+
+Each call to CALCFIELDS, CALCFIELD, CALCSUMS, or CALCSUM functions that calculates a sum requires a separate SQL statement unless the client has calculated the same sum or another sum that uses the same SumIndexFields or filters in a recent operation, and therefore, the result is cached.
+
+Each CALCFIELDS or CALCSUMS request should be confined to use only one SIFT index. The SIFT index can only be used if:
+-All requested sum-fields are contained in the same SIFT index.
+-The filtered fields are part of the key fields specified in the SIFT index containing all the sum fields.
+If neither of these requirements is fulfilled, then the sum will be calculated directly from the base table.
+
+
+IF Customer.FINDSET() THEN REPEAT  
+  Customer.CALCFIELDS(Customer.Balance)  
+  IF (Customer.Balance > MaxCreditLimit) THEN BEGIN  
+    Customer.Blocked = True;   
+    Customer.MODIFY();  
+  END  
+  ELSE IF (Customer.Balance > LargeCredit) THEN BEGIN  
+    Customer.Caution = True;  
+    Customer.MODIFY();   
+  END;   
+UNTIL Customer.NEXT = 0;
+
+	***Better:
+	Customer.SETFILTER(Customer.Balance,’>%1’, LargeCredit);   
+	IF Customer.FINDSET() THEN REPEAT  
+	  Customer.CALCFIELDS(Customer.Balance)  
+	  IF (Customer.Balance > MaxCreditLimit) THEN BEGIN   
+	    Customer.Blocked = True;   
+	    Customer.MODIFY();   
+	  END   
+	  ELSE IF (Customer.Balance > LargeCredit) THEN BEGIN   
+	    Customer.Caution = True;   
+	    Customer.MODIFY();   
+	  END;   
+	UNTIL Customer.NEXT = 0;
+
+		***Optimal:
+		Customer.SETFILTER(Customer.Balance,’>%1’, LargeCredit);   
+		Customer.SETAUTOCALCFIELDS(Customer.Balance)   
+		IF Customer.FINDSET() THEN REPEAT   
+		  IF (Customer.Balance > MaxCreditLimit) THEN BEGIN   
+		    Customer.Blocked = True;   
+		    Customer.MODIFY();   
+		  END   
+		  ELSE IF (Customer.Balance > LargeCredit) THEN BEGIN   
+		    Customer.Caution = True;   
+		    Customer.MODIFY();   
+		  END;   
+		UNTIL Customer.NEXT = 0;
+
+Each call to INSERT, MODIFY, or DELETE functions requires a separate SQL statement.
+If the table that you modify contains SumIndexes, then the operations will be much slower.
+
+The LOCKTABLE function does not require any separate SQL statements. It only causes any subsequent reading from the table to lock the table or parts of it.

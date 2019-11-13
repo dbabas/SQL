@@ -1,0 +1,12 @@
+Troubleshooting: Analyzing Long Running SQL Queries Involving FlowFields by Disabling SmartSQL
+https://docs.microsoft.com/en-us/dynamics-nav/troubleshooting-queries-involving-flowfields-by-disabling-smartsql
+
+What is SmartSQL: Introduced in Microsoft Dynamics NAV 2013, SmartSQL optimization does all calculations of FlowFields on a page by using a single SQL query. This reduces the number of network roundtrips from the server to the database.
+
+Check example on how SmartQueries work.
+
+In the SQL query, each section that starts with the keyword OUTER APPLY is responsible for a FlowField calculation, and the SmartSQL optimization adds this to the SQL query as an outer join. For each FlowField in the table, an OUTER APPLY clause is added to the SQL statement.
+
+Slect "Disable SmartSQL" to isolate flowfields.
+
+The fact that SmartSQL queries are not cached will only amplify the issue. It will not help to customize the page or change the visibility of the field either. If a FlowField is contained in the metadata of the page, it will be calculated.

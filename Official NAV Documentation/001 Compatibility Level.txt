@@ -1,0 +1,7 @@
+--Setting SQL Compatibility Level to Optimize Database Performance
+--https://docs.microsoft.com/en-us/dynamics-nav/optimize-sql-set-compatibility-level
+
+ALTER DATABASE <database name> SET COMPATIBILITY_LEVEL = { 140 | 130 }
+
+--140 sets the database to be compatible with SQL Server 2017
+--130 sets the database to be compatible with SQL Server 2016 and Azure SQL Database
