@@ -1,0 +1,6 @@
+SQL Tracing for Microsoft Dynamics
+
+- "Start Full SQL Tracing"
+
+- Stored Procedures -> SP:StmtCompleted
+  TSQL -> SQL:BatchCompleted
