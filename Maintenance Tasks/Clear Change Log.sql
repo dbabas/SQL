@@ -1,8 +1,6 @@
---Uses a two setup fields on the Company Information
---One Formula Duration visible to the user
---and one date field which is auto-calculated based on the above.
+--Uses a setup field on the Company Information, an integer to define the Months to keep.
 
-Use [Polystar_Test]
+Use [PolystarUpgrade]
 
 DECLARE @name nvarchar(80);
 DECLARE @cmd nvarchar(4000);
@@ -21,9 +19,9 @@ WHILE (1=1)
 	  FROM curs
 	  INTO @name;
     IF @@FETCH_STATUS < 0 BREAK;
-	-- stuff to do
-	SET @cmd = N'delete FROM [' + @name + N'$Change Log Entry] Where [Date and Time] < (Select [Change Log - Delete Date] from ['
-		+ @name + N'$Company Information])';
+	SET @cmd = N'delete FROM [' + @name + N'$Change Log Entry] Where [Date and Time] < dateadd(month,-(Select (case [Change Log - Delete Older Than] when 0 then 1200 else [Change Log - Delete Older Than] end) from ['
+		+ @name + N'$Company Information]),CURRENT_TIMESTAMP)';
+
 	EXEC (@cmd);
   END;
 
